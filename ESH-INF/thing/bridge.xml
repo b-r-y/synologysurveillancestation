@@ -7,11 +7,18 @@
 		<label>Bridge Synology Surveilance Station API</label>
 		<description>Represents the API for Synology Surveilance Station.</description>
 
+		<channel-groups>
+			<channel-group id="common-bridge" typeId="common-bridge-type" />
+			<channel-group id="notification-filter" typeId="notification-filter-type" />
+		</channel-groups>
+
+		<!-- 
 		<channels>
 			<channel id="homemode" typeId="homemode-channel" />
 			<channel id="eventtrigger" typeId="eventtrigger-channel" />
 			<channel id="sid" typeId="sid-channel" />
 		</channels>
+ 		-->
 
 		<properties>
 			<property name="vendor">Synology</property>
@@ -55,6 +62,51 @@
 		</config-description>
 	</bridge-type>
 
+	<channel-group-type id="common-bridge-type">
+		<label>Common bridge channels</label>
+		<description>Common channels of your bridge (Disk Station)</description>
+		<channels>
+			<channel id="homemode" typeId="homemode-channel" />
+			<channel id="eventtrigger" typeId="eventtrigger-channel" />
+			<channel id="sid" typeId="sid-channel" />
+		</channels>
+	</channel-group-type>
+
+	<channel-group-type id="notification-filter-type">
+		<label>Notification Filter</label>
+		<description>Notification filter channels - require admin type user on diskstation</description>
+		<channels>
+			<channel id="notification-filter-cameraconnectionlost" typeId="notification-filter-channel" >
+				<label> Camera connection lost</label>
+				<description>Notifications for lost connection to camera. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+			<channel id="notification-filter-cameraconnectionresumed" typeId="notification-filter-channel" >
+				<label> Camera connection resumed</label>
+				<description>Notifications for resumed connection to camera. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+			<channel id="notification-filter-motiondetected" typeId="notification-filter-channel" >
+				<label> Motion detected</label>
+				<description>Notifications for detected motion. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+			<channel id="notification-filter-digitalinputdetected" typeId="notification-filter-channel" >
+				<label> Digital input detected</label>
+				<description>Digital input on camera detected. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+			<channel id="notification-filter-audiodetected" typeId="notification-filter-channel" >
+				<label> Audio detected</label>
+				<description>Audio detected. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+			<channel id="notification-filter-tamperingdetected" typeId="notification-filter-channel" >
+				<label> Tampering detected</label>
+				<description>Tampering detected. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+			<channel id="notification-filter-archivelimitreached" typeId="notification-filter-channel" >
+				<label> Archive limit reached</label>
+				<description>Archive limit reached. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+			</channel>
+		</channels>
+	</channel-group-type>
+
 	<channel-type id="homemode-channel" advanced="true">
 		<item-type>Switch</item-type>
 		<label>Home Mode</label>
@@ -70,5 +122,22 @@
 		<item-type>String</item-type>
 		<label>Current SID</label>
 		<description>Current session ID (SID)</description>
+	</channel-type>
+	<channel-type id="notification-filter-channel" advanced="true">
+		<item-type>String</item-type>
+		<label>Notification Filter</label>
+		<description>Notification filter source. 0:disable all, 1:Email, 2:SMS, 4:Mobile, 7:Email+SMS+Mobile</description>
+		<state>
+			<options>
+				<option value="0">Disabled</option>
+				<option value="1">Email</option>
+				<option value="2">SMS</option>
+				<option value="3">Email+SMS</option>
+				<option value="4">Mobile</option>
+				<option value="5">Email+Mobile</option>
+				<option value="6">SMS+Mobile</option>
+				<option value="7">Email+SMS+Mobile</option>
+			</options>
+		</state>
 	</channel-type>
 </thing:thing-descriptions>

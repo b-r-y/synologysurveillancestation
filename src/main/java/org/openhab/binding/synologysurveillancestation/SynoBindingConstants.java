@@ -1,10 +1,14 @@
 /**
- * Copyright (c) 2010-2019 by the respective copyright holders.
+ * Copyright (c) 2010-2019 Contributors to the openHAB project
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * See the NOTICE file(s) distributed with this work for additional
+ * information.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0
+ *
+ * SPDX-License-Identifier: EPL-2.0
  */
 package org.openhab.binding.synologysurveillancestation;
 
@@ -98,5 +102,17 @@ public class SynoBindingConstants {
     public static final Set<String> CHANNEL_MDPARAM = Collections.unmodifiableSet(Stream
             .of(CHANNEL_MDPARAM_SOURCE, CHANNEL_MDPARAM_SENSITIVITY, CHANNEL_MDPARAM_THRESHOLD,
                     CHANNEL_MDPARAM_OBJECTSIZE, CHANNEL_MDPARAM_PERCENTAGE, CHANNEL_MDPARAM_SHORTLIVE)
+            .collect(Collectors.toSet()));
+    // List of all notification filter parameters
+    public static final String CHANNEL_NF_CAMCONLOST = "notification-filter#notification-filter-cameraconnectionlost";
+    public static final String CHANNEL_NF_CAMCONRESUMED = "notification-filter#notification-filter-cameraconnectionresumed";
+    public static final String CHANNEL_NF_MOTIONDETECTED = "notification-filter#notification-filter-motiondetected";
+    public static final String CHANNEL_NF_DIGINPUTDETECTED = "notification-filter#notification-filter-digitalinputdetected";
+    public static final String CHANNEL_NF_AUDIODETECTED = "notification-filter#notification-filter-audiodetected";
+    public static final String CHANNEL_NF_TAMPERINGDETECTED = "notification-filter#notification-filter-tamperingdetected";
+    public static final String CHANNEL_NF_ARCHIVELIMITREACHED = "notification-filter#notification-filter-archivelimitreached";
+    public static final Set<String> CHANNEL_NOTIFICATION_FILTER = Collections.unmodifiableSet(Stream
+            .of(CHANNEL_NF_CAMCONLOST, CHANNEL_NF_CAMCONRESUMED, CHANNEL_NF_MOTIONDETECTED, CHANNEL_NF_DIGINPUTDETECTED,
+                    CHANNEL_NF_AUDIODETECTED, CHANNEL_NF_TAMPERINGDETECTED, CHANNEL_NF_ARCHIVELIMITREACHED)
             .collect(Collectors.toSet()));
 }
