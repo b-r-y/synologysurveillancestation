@@ -99,4 +99,17 @@ public class SynoBindingConstants {
             .of(CHANNEL_MDPARAM_SOURCE, CHANNEL_MDPARAM_SENSITIVITY, CHANNEL_MDPARAM_THRESHOLD,
                     CHANNEL_MDPARAM_OBJECTSIZE, CHANNEL_MDPARAM_PERCENTAGE, CHANNEL_MDPARAM_SHORTLIVE)
             .collect(Collectors.toSet()));
+
+    // List of all notification filter parameters
+    public static final String CHANNEL_NF_CAMCONLOST = "notification-filter#notification-filter-cameraconnectionlost";
+    public static final String CHANNEL_NF_CAMCONRESUMED = "notification-filter#notification-filter-cameraconnectionresumed";
+    public static final String CHANNEL_NF_MOTIONDETECTED = "notification-filter#notification-filter-motiondetected";
+    public static final String CHANNEL_NF_DIGINPUTDETECTED = "notification-filter#notification-filter-digitalinputdetected";
+    public static final String CHANNEL_NF_AUDIODETECTED = "notification-filter#notification-filter-audiodetected";
+    public static final String CHANNEL_NF_TAMPERINGDETECTED = "notification-filter#notification-filter-tamperingdetected";
+    public static final String CHANNEL_NF_ARCHIVELIMITREACHED = "notification-filter#notification-filter-archivelimitreached";
+    public static final Set<String> CHANNEL_NOTIFICATION_FILTER = Collections.unmodifiableSet(Stream
+            .of(CHANNEL_NF_CAMCONLOST, CHANNEL_NF_CAMCONRESUMED, CHANNEL_NF_MOTIONDETECTED, CHANNEL_NF_DIGINPUTDETECTED,
+                    CHANNEL_NF_AUDIODETECTED, CHANNEL_NF_TAMPERINGDETECTED, CHANNEL_NF_ARCHIVELIMITREACHED)
+            .collect(Collectors.toSet()));
 }
