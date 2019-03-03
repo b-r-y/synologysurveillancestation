@@ -103,6 +103,7 @@ public class SynoBindingConstants {
             .of(CHANNEL_MDPARAM_SOURCE, CHANNEL_MDPARAM_SENSITIVITY, CHANNEL_MDPARAM_THRESHOLD,
                     CHANNEL_MDPARAM_OBJECTSIZE, CHANNEL_MDPARAM_PERCENTAGE, CHANNEL_MDPARAM_SHORTLIVE)
             .collect(Collectors.toSet()));
+
     // List of all notification filter parameters
     public static final String CHANNEL_NF_CAMCONLOST = "notification-filter#notification-filter-cameraconnectionlost";
     public static final String CHANNEL_NF_CAMCONRESUMED = "notification-filter#notification-filter-cameraconnectionresumed";
