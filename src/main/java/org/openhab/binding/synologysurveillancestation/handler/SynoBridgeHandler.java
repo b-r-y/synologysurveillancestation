@@ -125,6 +125,16 @@ public class SynoBridgeHandler extends BaseBridgeHandler implements SynoHandler 
                         updateState(channelUID, new StringType(apiHandler.getSessionID()));
                     }
                     break;
+                case CHANNEL_NF_MOTIONDETECTED:
+                    apiHandler.getApiNotificationFilter().setMotionDetected(command.toString());
+                    break;
+                case CHANNEL_NF_CAMCONLOST:
+                case CHANNEL_NF_CAMCONRESUMED:
+                case CHANNEL_NF_DIGINPUTDETECTED:
+                case CHANNEL_NF_AUDIODETECTED:
+                case CHANNEL_NF_TAMPERINGDETECTED:
+                case CHANNEL_NF_ARCHIVELIMITREACHED:
+                    break;
             }
         } catch (Exception e) {
             logger.error("handle command: {}::{}", getThing().getLabel(), getThing().getUID());

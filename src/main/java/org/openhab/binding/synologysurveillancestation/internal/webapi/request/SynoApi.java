@@ -61,6 +61,10 @@ public interface SynoApi {
     public static final String METHOD_MOTIONENUM = "MotionEnum";
     public static final String METHOD_MDPARAMSAVE = "MDParamSave";
 
+    // Methods related to the Notification.Filter API
+    public static final String METHOD_GET = "Get";
+    public static final String METHOD_SET = "Set";
+
     public static final int CONNECTION_TIMEOUT = 5000;
 
     public SynoApiConfig getApiConfig();

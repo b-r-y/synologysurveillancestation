@@ -27,6 +27,7 @@ import org.openhab.binding.synologysurveillancestation.internal.webapi.request.S
 import org.openhab.binding.synologysurveillancestation.internal.webapi.request.SynoApiHomeMode;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.request.SynoApiInfo;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.request.SynoApiLiveUri;
+import org.openhab.binding.synologysurveillancestation.internal.webapi.request.SynoApiNotificationFilter;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.request.SynoApiPTZ;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.request.SynoApiRequest;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.response.AuthResponse;
@@ -61,6 +62,7 @@ public class SynoWebApiHandler implements SynoWebApi {
         api.put(SynoApiLiveUri.class, new SynoApiLiveUri(config, httpClient));
         api.put(SynoApiExternalEvent.class, new SynoApiExternalEvent(config, httpClient));
         api.put(SynoApiCameraEvent.class, new SynoApiCameraEvent(config, httpClient));
+        api.put(SynoApiNotificationFilter.class, new SynoApiNotificationFilter(config, httpClient));
     }
 
     /**
@@ -134,6 +136,13 @@ public class SynoWebApiHandler implements SynoWebApi {
     @Override
     public boolean isConnected() {
         return (!this.sessionID.equals(""));
+    }
+
+    /**
+     * @return the apiNotificationFilter
+     */
+    public SynoApiNotificationFilter getApiNotificationFilter() {
+        return getApi(SynoApiNotificationFilter.class);
     }
 
     /**
