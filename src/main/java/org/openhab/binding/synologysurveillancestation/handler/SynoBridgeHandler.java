@@ -126,14 +126,13 @@ public class SynoBridgeHandler extends BaseBridgeHandler implements SynoHandler 
                     }
                     break;
                 case CHANNEL_NF_MOTIONDETECTED:
-                    apiHandler.getApiNotificationFilter().setMotionDetected(command.toString());
-                    break;
                 case CHANNEL_NF_CAMCONLOST:
                 case CHANNEL_NF_CAMCONRESUMED:
                 case CHANNEL_NF_DIGINPUTDETECTED:
                 case CHANNEL_NF_AUDIODETECTED:
                 case CHANNEL_NF_TAMPERINGDETECTED:
                 case CHANNEL_NF_ARCHIVELIMITREACHED:
+                    apiHandler.getApiNotificationFilter().setNotificationFilter(channelUID.getId(), command.toString());
                     break;
             }
         } catch (Exception e) {

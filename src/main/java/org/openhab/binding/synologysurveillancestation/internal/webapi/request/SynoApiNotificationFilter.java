@@ -12,6 +12,8 @@
  */
 package org.openhab.binding.synologysurveillancestation.internal.webapi.request;
 
+import static org.openhab.binding.synologysurveillancestation.SynoBindingConstants.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +21,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jetty.client.HttpClient;
 import org.openhab.binding.synologysurveillancestation.internal.SynoConfig;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.WebApiException;
-import org.openhab.binding.synologysurveillancestation.internal.webapi.response.CameraEventResponse;
+import org.openhab.binding.synologysurveillancestation.internal.webapi.response.HomeModeResponse;
 import org.openhab.binding.synologysurveillancestation.internal.webapi.response.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +32,12 @@ import org.slf4j.LoggerFactory;
  * Event Detection related WebAPI. e.g. Enumerate detection parameters or long polling for alarm status or save
  * detection parameters.
  *
- * @author Pavion - Initial contribution
+ * @author b-r-y - Initial contribution
+ * @author Pavion - b-r-y copied his stuff well :)
  *
  */
 @NonNullByDefault
-public class SynoApiNotificationFilter extends SynoApiRequest<CameraEventResponse> {
+public class SynoApiNotificationFilter extends SynoApiRequest<HomeModeResponse> {
     private final Logger logger = LoggerFactory.getLogger(SynoApiNotificationFilter.class);
 
     // API configuration
@@ -49,26 +52,67 @@ public class SynoApiNotificationFilter extends SynoApiRequest<CameraEventRespons
     }
 
     /**
-     * Get motion detection parameter
+     * Get API events
      *
-     * @param cameraId
      * @return
      * @throws WebApiException
      */
-    public CameraEventResponse getMDParam(String cameraId) throws WebApiException {
-        Map<String, String> params = new HashMap<>();
-        params.put("camId", cameraId);
-        return callApi(METHOD_MOTIONENUM, params);
+    public HomeModeResponse getHomeModeResponse() {
+        try {
+            Map<String, String> params = new HashMap<>();
+            return callApi(METHOD_GETINFO, params);
+        } catch (WebApiException e) {
+            return new HomeModeResponse("{\"data\":{},\"success\":false}");
+        }
     }
 
-    public SimpleResponse setMotionDetected(String notificationFilter) throws WebApiException {
+    public SimpleResponse setNotificationFilter(String channel, String notificationFilter) throws WebApiException {
         if (!(notificationFilter.equals("0") || notificationFilter.equals("1") || notificationFilter.equals("2")
                 || notificationFilter.equals("3") || notificationFilter.equals("4") || notificationFilter.equals("5")
                 || notificationFilter.equals("6") || notificationFilter.equals("7"))) {
             return new SimpleResponse("{\"data\":{},\"success\":false}");
         }
+        String eventType = selectEventType(channel);
         Map<String, String> params = new HashMap<>();
-        params.put("5", notificationFilter);
+        params.put(eventType, notificationFilter);
         return callApi(METHOD_SET, params);
     }
+
+    /**
+     * Implements the Notification Filter API selection
+     *
+     * @param channel
+     * @return
+     */
+    private String selectEventType(String channel) {
+        String eventType;
+        switch (channel) {
+            case CHANNEL_NF_CAMCONLOST:
+                eventType = "3";
+                break;
+            case CHANNEL_NF_CAMCONRESUMED:
+                eventType = "4";
+                break;
+            case CHANNEL_NF_MOTIONDETECTED:
+                eventType = "5";
+                break;
+            case CHANNEL_NF_DIGINPUTDETECTED:
+                eventType = "6";
+                break;
+            case CHANNEL_NF_AUDIODETECTED:
+                eventType = "8";
+                break;
+            case CHANNEL_NF_TAMPERINGDETECTED:
+                eventType = "9";
+                break;
+            case CHANNEL_NF_ARCHIVELIMITREACHED:
+                eventType = "10";
+                break;
+            default:
+                eventType = "0";
+                break;
+        }
+        return eventType;
+    }
+
 }
